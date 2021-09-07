@@ -233,8 +233,11 @@ def find_current_location(location_label):
 
 def render(current_location, score, moves):
 	if "name" in current_location and "cleanText" in current_location:
-		print("You are at the " + str(current_location["name"]))
-		print(current_location["cleanText"] + "\n")
+		  print("You are at the " + str(current_location["name"]))
+		  print(current_location["cleanText"] + "\n")
+		  print("Moves: " + str(moves) + " Score: " + str(score))
+		  moves += 1
+	
 
 def get_input():
 	response = input("What do you want to do? ")
@@ -259,13 +262,22 @@ current_location = {}
 response = ""
 score = 0
 moves = 0
+vistKitchen = False
+visitTree = False
 
 while True:
 	if response == "QUIT":
 		break
 	location_label = update(current_location, location_label, response)
 	current_location = find_current_location(location_label)
+	if location_label == "Kitchen" and not vistKitchen:
+		vistKitchen = True
+		score += 20
+	if location_label == "Tree" and not visitTree:
+		visitTree = True
+		score += 10
 	render(current_location, score, moves)
+	moves += 1
 	response = get_input()
 
 
